@@ -116,7 +116,7 @@ function insertStockData(data) {
 		}
 		else {
 			Log.log('connected to ' + config.databaseUrl);
-			//var now = new Date();
+			var now = new Date();
 			var yesterday = now.getFullYear().toString() + '0' + (now.getMonth() + 1).toString() + (now.getDate() -1).toString();
 			var stock = {};
 			stock.stock_time = yesterday;
