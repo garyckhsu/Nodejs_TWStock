@@ -25,7 +25,7 @@ app.listen(5566, function () {
 	Log.log('App start listen, version = ' + packageInfo.version);
 });
 
-setInterval(getStockData, 60 * 60 * 1000);
+//setInterval(getStockData, 60 * 60 * 1000);
 
 app.route('/appversion').get((req, res) => {
 		let result = {
