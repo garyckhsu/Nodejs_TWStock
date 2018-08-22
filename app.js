@@ -75,6 +75,7 @@ function getYesterDayStockData(callBack) {
 			const { JSDOM } = jsdom;
 			const frag = JSDOM.fragment(data);
 			//Log.log(frag.querySelector("tbody").childNodes.item(1).textContent);
+			insertStockData(frag.querySelector("tbody").textContent);
 			callBack(frag.querySelector("tbody").textContent);
 		});
 
@@ -100,7 +101,7 @@ function getStockData() {
 		res.on('end', () => {
 			const { JSDOM } = jsdom;
 			const frag = JSDOM.fragment(data);
-			insertStockData(frag.querySelector("tbody").childNodes.item(1).textContent);
+			insertStockData(frag.querySelector("tbody").textContent);
 		});
 
 	}).on("error", (err) => {
@@ -115,11 +116,11 @@ function insertStockData(data) {
 		}
 		else {
 			Log.log('connected to ' + config.databaseUrl);
-			var now = new Date();
+			//var now = new Date();
+			var yesterday = now.getFullYear().toString() + '0' + (now.getMonth() + 1).toString() + (now.getDate() -1).toString();
 			var stock = {};
-			stock.stock_time = now.getFullYear().toString() + (now.getMonth() + 1).toString() + now.getDate().toString();
+			stock.stock_time = yesterday;
 			stock.stock_data = data;
-			//Log.log(stockTimeStamp);
 			client.db(config.databaseName).collection(config.collection).insertOne(stock, { upsert: true }, function (err, result) {
 				client.close();
 			});
