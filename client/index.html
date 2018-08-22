@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            initSubmitForm();
+        });
+        var initSubmitForm = function () {
+            $.ajax({
+                url: 'http://localhost:5566/getStock',
+                type: "GET",
+                dataType: "text",
+                complete: function (data, textStatus, jqXHR) {
+                    console.log(textStatus);
+                    console.log(data);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(textStatus);
+                    console.log(data.length);
+                    var htmlCode =
+                        "<div class=\"alert alert-dismissable alert-info\">"
+                        + data
+                        + "</div>";
+
+                    $('#message').append(htmlCode);
+                }
+            });
+        };
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h3 id="Date"> </h3>
+                <script>
+                    var now = new Date();
+                    var yesterday = now.getFullYear().toString() + '0' + (now.getMonth() + 1).toString() + (now.getDate() - 1).toString();
+                    document.getElementById("Date").innerHTML = yesterday;
+                </script>
+                <div id="message"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
